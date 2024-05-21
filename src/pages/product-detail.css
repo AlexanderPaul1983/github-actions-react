@@ -1,0 +1,60 @@
+.product-detail-container {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
+.product-detail-container h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.product-detail-container label {
+    font-size: 18px;
+}
+
+.product-detail-container input {
+    margin: 10px 0;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.product-detail-container button {
+    background-color: rgba(2, 161, 2, 0.372);
+    padding: 10px 20px;
+    font-size: 40px;
+    cursor: pointer;
+    margin-bottom: 100px;
+}
+.snowboards-container{
+    display: flex;
+    flex-direction: row; 
+}
+#cart-btn{
+   background-color: rgb(189, 240, 22);
+   font-size: 20px;
+   margin-left: 8px;
+}
+#cart-btn:hover{
+    background-color: rgb(181, 235, 6);
+    border-color: gold;
+ }
+.snowboard-items{
+    margin-left: 35px;
+    border: 2px solid;
+    padding: 15px;
+}
+#auswahl-delete{
+    background-color: rgb(219, 105, 105);
+    font-size: 13px;
+    border: none;
+}
+#auswahl-delete:hover{
+    background-color: rgb(218, 92, 92);
+    font-size: 13px;
+    border: 1px solid;
+    cursor: pointer;
+}

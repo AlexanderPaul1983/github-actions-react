@@ -1,8 +1,11 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
+test('renders home link', () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  const homeLinks = screen.getAllByText(/home/i);
+  // Überprüfen Sie, dass mindestens ein "Home"-Link im Dokument vorhanden ist
+  expect(homeLinks.length).toBeGreaterThan(0);
+  // Optional: Überprüfen Sie ein bestimmtes Element, z.B. das erste
+  expect(homeLinks[0]).toBeInTheDocument();
 });

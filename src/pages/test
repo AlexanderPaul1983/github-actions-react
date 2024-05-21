@@ -1,0 +1,23 @@
+import React from 'react';
+
+
+function ItemPage() {
+  return (
+    <div className='itemPage'>
+        <div className='items-1'>
+            <button className='button'>Snowboards</button>
+        </div>
+        <div className='items-2'>
+            <button className='button'>Boots</button>
+        </div>
+        <div className='items-3'>
+            <button className='button'>Bekleidung</button>
+        </div>
+        <div className='items-4'>
+            <button className='button'>Bindungen</button>
+        </div>
+    </div>
+  );
+}
+
+export default ItemPage;
