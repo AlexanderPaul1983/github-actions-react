@@ -1,7 +1,8 @@
 import React from 'react';
-import './comStyle.css'; // Stelle sicher, dass die CSS-Datei die entsprechenden Stile enthält
+import './comStyle.css'; 
 
 const Footer = () => {
+  // hello
   return (
     <footer className="footer">
       <div className="footer-links">
