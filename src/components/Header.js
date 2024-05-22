@@ -9,10 +9,10 @@ function Header() {
         <div className='header-container'>
         <div className='header-item-1'>
             <a id='home-site'>Home</a>
-            <a>Sale</a>
-            <a>Frauen</a>
-            <a>Männer</a>
-            <a>Kinder</a>
+            <a href=''>Sale</a>
+            <a href=''>Frauen</a>
+            <a href=''>Männer</a>
+            <a href=''>Kinder</a>
         </div>
 
         <div className='header-item-2'>

@@ -3,7 +3,7 @@ import './style.css'
 import Header from '../components/Header'
 import ProductOverview from '../components/ProductOverview'
 import Footer from '../components/Footer'
-import { Link } from 'react-router-dom';
+
 
 function Home() {
   return (
