@@ -1,24 +1,38 @@
-name: Test Onlline Shop
-on: push
-jobs:
-    test:
-        runs-on: ubuntu-latest
-        steps: 
-            - name: Get repository code
-              uses: actions/checkout@v4
-            
-            - name: Test
-              run: npm run test
-    lint:
+name: Test Online Shop
 
-        runs-on: ubuntu-latest
-            
-        steps:
-            - name: Checkout repository
-              uses: actions/checkout@v4
-            
-            - name: Install dependencies
-              run: npm ci
-            
-            - name: Run ESLint
-              run: npm run lint
+on: push
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '16'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Run tests
+        run: npm run test
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '16'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Run ESLint
+        run: npm run lint
