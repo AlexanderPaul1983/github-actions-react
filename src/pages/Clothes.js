@@ -2,27 +2,37 @@ import React, { useState } from 'react';
 import './product-detail.css';
 
 const Clothes = () => {
-    const clothes = [
-        { id: 1, name: 'Snowboard-Jacke', preis: 299.00 },
-        { id: 2, name: 'Snowboard-Hose', preis: 99.00 },
-        { id: 3, name: 'Snowboard-Mütze', preis: 35.00 }
-    ];
+    const snowboard1 = {
+        id: 1,
+        name: 'Clothe-1',
+        preis: 50.00
+    }
+    const snowboard2 = {
+        id: 2,
+        name: 'Clothe-2',
+        preis: 56.00
+    }
+    const snowboard3 = {
+        id: 3,
+        name: 'Clothe-3',
+        preis: 80.00
+    }
+
+    const snowboards = [snowboard1, snowboard2, snowboard3];
 
     const [auswahl, setAuswahl] = useState([]);
     const [gesamtPreis, setGesamtPreis] = useState(0);
 
-    const addItem = (cloth) => {
-        setAuswahl([...auswahl, cloth]);
-        setGesamtPreis(prevPreis => prevPreis + cloth.preis);
+    const addItem = (snowboard) => {
+        setAuswahl([...auswahl, snowboard]);
+        setGesamtPreis(prevPreis => prevPreis + snowboard.preis);
     }
 
     const removeItem = (id) => {
-        const updatedAuswahl = auswahl.filter(cloth => cloth.id !== id);
-        const removedCloth = auswahl.find(cloth => cloth.id === id);
-        if (removedCloth) {
-            setAuswahl(updatedAuswahl);
-            setGesamtPreis(prevPreis => prevPreis - removedCloth.preis);
-        }
+        const updatedAuswahl = auswahl.filter(snowboard => snowboard.id !== id);
+        const removedSnowboard = auswahl.find(snowboard => snowboard.id === id);
+        setAuswahl(updatedAuswahl);
+        setGesamtPreis(prevPreis => prevPreis - removedSnowboard.preis);
     }
 
     return (
@@ -30,27 +40,28 @@ const Clothes = () => {
             <h1>Clothes auswählen</h1>
             
             <div className='snowboards-container'>
-                {clothes.map(cloth => (
-                    <div className='snowboard-items' key={cloth.id}>
-                        <h2>{cloth.name}</h2>
-                        <p>Preis: </p><h3>{cloth.preis} Euro</h3>
-                        <button className='cart-btn' onClick={() => addItem(cloth)}>Zum Warenkorb</button>
+                {snowboards.map(snowboard => (
+                    <div className='snowboard-items' key={snowboard.id}>
+                        <h2>{snowboard.name}</h2>
+                        <p>Preis: </p><h3>{snowboard.preis} Euro</h3>
+                        <button id='cart-btn'>Zum Warenkorb</button>
+                        <button id='cart-btn' onClick={() => addItem(snowboard)}>Auswählen</button>
                     </div>
                 ))}
             </div>
 
             <h2>Ihre Auswahl:</h2>
-            {auswahl.map(cloth => (
-                <div key={cloth.id}>
-                    <h4>{cloth.name}</h4>
-                    <p>Preis: {cloth.preis} Euro</p>
-                    <button className='auswahl-delete' onClick={() => removeItem(cloth.id)}>Auswahl löschen</button>
+            {auswahl.map(snowboard => (
+                <div key={snowboard.id}>
+                    <h4>{snowboard.name}</h4>
+                    <p>Preis: {snowboard.preis} Euro</p>
+                    <button id='auswahl-delete' onClick={() => removeItem(snowboard.id)}>Auswahl löschen</button>
                 </div>
             ))}
 
             <h2>Gesamtpreis: </h2>
             <h4>{gesamtPreis.toFixed(2)} Euro</h4>
-            <button>Kaufen</button>
+            <button className='kaufen-btn-onProducts'>Kaufen</button>
         </div>
     );
 }

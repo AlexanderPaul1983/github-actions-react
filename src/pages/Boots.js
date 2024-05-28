@@ -37,7 +37,7 @@ const Boots = () => {
 
     return (
         <div className="product-detail-container">
-            <h1>Snowboards auswählen</h1>
+            <h1>Boots auswählen</h1>
             
             <div className='snowboards-container'>
                 {snowboards.map(snowboard => (
@@ -61,7 +61,7 @@ const Boots = () => {
 
             <h2>Gesamtpreis: </h2>
             <h4>{gesamtPreis.toFixed(2)} Euro</h4>
-            <button>Kaufen</button>
+            <button className='kaufen-btn-onProducts'>Kaufen</button>
         </div>
     );
 }

@@ -58,3 +58,7 @@
     border: 1px solid;
     cursor: pointer;
 }
+.kaufen-btn-onProducts{
+    cursor: pointer;
+    margin-bottom: 40px;
+}

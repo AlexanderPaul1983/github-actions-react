@@ -8,11 +8,11 @@ function Header() {
     <div>
         <div className='header-container'>
         <div className='header-item-1'>
-            <a id='home-site'>Home</a>
-            <a href=''>Sale</a>
-            <a href=''>Frauen</a>
-            <a href=''>Männer</a>
-            <a href=''>Kinder</a>
+            <a id='home-site' href='/boots'>Home</a>
+            <a href='/boots'>Sale</a>
+            <a href='/boots'>Frauen</a>
+            <a href='/boots'>Männer</a>
+            <a href='/boots'>Kinder</a>
         </div>
 
         <div className='header-item-2'>
