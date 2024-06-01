@@ -1,4 +1,4 @@
-name: Lint Code
+name: Qualität des Kodes prüfen
 
 on: workflow_dispatch
 
@@ -16,11 +16,8 @@ jobs:
       with:
         node-version: '16'
     - name: Caching
-      uses: actions/ cache@v4
-      with:
-        path: ~/.npm
-        key: modules-${{hashFiles('/package-lock.json')}}
-
+      uses: actions/cache@v4
+     
     - name: Install dependencies
       run: npm install
 
