@@ -16,11 +16,37 @@
     font-size: 18px;
 }
 
+.home-container{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+
 .product-detail-container input {
     margin: 10px 0;
     padding: 10px;
     font-size: 16px;
 }
+
+.centered-container {
+    display: flex;
+    justify-content: center; 
+    align-items: center;  
+    height: 100vh; 
+    border: 1px solid black; 
+
+    
+  }
+  
+  .content {
+    text-align: center;    
+    border: 1px solid red; 
+    padding: 20px;        
+  }
 
 .product-detail-container button {
     background-color: rgba(2, 161, 2, 0.372);
