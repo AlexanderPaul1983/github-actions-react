@@ -5,6 +5,10 @@ export const addItem = item => ({
     payload: item
 });
 
+export const clearCart = () => ({
+    type: 'CLEAR_CART'
+});
+
 export const removeItem = id => ({
     type: 'REMOVE_ITEM',
     payload: id
@@ -32,10 +36,15 @@ const cartReducer = (state = initialState, action) => {
                 auswahl: newAuswahl,
                 gesamtPreis: state.gesamtPreis - itemToRemove.preis
             };
+        case 'CLEAR_CART':  
+            return {
+                ...state,
+                auswahl: [],
+                gesamtPreis: 0
+            };
         default:
             return state;
     }
 };
-
 
 export default cartReducer;

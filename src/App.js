@@ -7,6 +7,9 @@ import Bindings from './pages/Bindings';
 import Boots from './pages/Boots';
 import Clothes from './pages/Clothes';
 import ShoppingCart from './pages/ShoppingCart';
+import ProductOverview from './components/ProductOverview';
+
+
 function App() {
   return (
     <Router>
@@ -16,6 +19,7 @@ function App() {
           <Route path="/snowboards" element={<Snowboards />} />
           <Route path="/bindings" element={<Bindings />} />
           <Route path="/boots" element={<Boots />} />
+          <Route path="/productoverview" element={<ProductOverview />} />
           <Route path="/clothes" element={<Clothes />} />
           <Route path="/cart" element={<ShoppingCart />} />
         </Routes>

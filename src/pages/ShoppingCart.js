@@ -1,10 +1,11 @@
-// src/components/ShoppingCart.js
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { removeProduct, changeAmount } from '../store/cart';
+import { useNavigate } from 'react-router-dom';
+import { removeProduct, changeAmount, clearCart } from '../store/cart';  // Stelle sicher, dass clearCart importiert ist
 
 const ShoppingCart = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const products = useSelector(state => state.cart.products);
 
   const handleRemove = (id) => {
@@ -15,6 +16,11 @@ const ShoppingCart = () => {
     if (quantity > 0) {
       dispatch(changeAmount({ id, quantity }));
     }
+  };
+
+  const handleCheckout = () => {
+    dispatch(clearCart());
+    navigate('/'); // Navigiere zur Hauptseite
   };
 
   return (
@@ -28,7 +34,7 @@ const ShoppingCart = () => {
             <div key={product.id} style={styles.product}>
               <span>{product.name}</span>
               <span>
-                Quantity: 
+                Quantity:
                 <button onClick={() => handleChangeAmount(product.id, product.quantity - 1)}>-</button>
                 {product.quantity}
                 <button onClick={() => handleChangeAmount(product.id, product.quantity + 1)}>+</button>
@@ -38,11 +44,10 @@ const ShoppingCart = () => {
           ))}
         </div>
       )}
-      <button style={styles.checkoutButton}>Checkout</button>
+      <button style={styles.checkoutButton} onClick={handleCheckout}>Checkout</button>
     </div>
   );
 };
-
 const styles = {
   cartContainer: {
     padding: '20px',
@@ -65,5 +70,4 @@ const styles = {
     cursor: 'pointer',
   },
 };
-
 export default ShoppingCart;
