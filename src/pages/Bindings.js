@@ -1,26 +1,31 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import './product-detail.css';
-import Header from '../components/Header'; // Import des Headers
-import Footer from '../components/Footer'; // Import des Footers
-import { addProduct } from '../store/cart'; // Import der Redux-Aktion
+import Header from '../components/Header';
+import Footer from '../components/Footer';
+import { addProduct } from '../store/cart';
 
 const Bindings = () => {
     const dispatch = useDispatch();
+    const cartItems = useSelector(state => state.cart.products);
 
-    const snowboards = [
-        { id: 1, name: 'Bindung-1', preis: 100.00, category: 'bindings' },
-        { id: 2, name: 'Bindung-2', preis: 90.00, category: 'bindings' },
-        { id: 3, name: 'Bindung-3', preis: 170.00, category: 'bindings' }
+    const bindings = [
+        { id: 1, name: 'Bindung Soft', preis: 100.00, category: 'bindings' },
+        { id: 2, name: 'Bindung Middle', preis: 90.00, category: 'bindings' },
+        { id: 3, name: 'Bindung Hard', preis: 170.00, category: 'bindings' }
     ];
 
-    // Anpassen der handleAddToCart Funktion, um die Kategorie in die Produkt-ID einzubeziehen
-    const handleAddToCart = (snowboard) => {
+    const handleAddToCart = (binding) => {
         dispatch(addProduct({
-            ...snowboard, 
-            id: `${snowboard.category}-${snowboard.id}`, // Kombinierte ID aus Kategorie und originaler ID
+            ...binding, 
+            id: `${binding.category}-${binding.id}`,
             quantity: 1
         }));
+    };
+
+    const getProductQuantity = (binding) => {
+        const product = cartItems.find(item => item.id === `${binding.category}-${binding.id}`);
+        return product ? product.quantity : 0;
     };
 
     return (
@@ -29,13 +34,14 @@ const Bindings = () => {
             <div className='centered-container'>
                 <div className="product-detail-container">
                     <div className='snowboards-container'>
-                        {snowboards.map(snowboard => (
-                            <div className='snowboard-items' key={`${snowboard.category}-${snowboard.id}`}>
-                                <h2>{snowboard.name}</h2>
-                                <p>Preis: </p><h3>{snowboard.preis} Euro</h3>
-                                <button onClick={() => handleAddToCart(snowboard)}>
+                        {bindings.map(binding => (
+                            <div className='snowboard-items' key={`${binding.category}-${binding.id}`}>
+                                <h2>{binding.name}</h2>
+                                <p>Preis: <strong>{binding.preis} Euro</strong></p>
+                                <button onClick={() => handleAddToCart(binding)}>
                                     +
                                 </button>
+                                <span style={{ marginLeft: '10px' }}>Menge: {getProductQuantity(binding)}</span>
                             </div>
                         ))}
                     </div>
@@ -45,6 +51,5 @@ const Bindings = () => {
         </div>
     );
 }
-
 
 export default Bindings;
