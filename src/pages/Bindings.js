@@ -10,9 +10,9 @@ const Bindings = () => {
     const cartItems = useSelector(state => state.cart.products);
 
     const bindings = [
-        { id: 1, name: 'Bindung Soft', preis: 100.00, category: 'bindings' },
-        { id: 2, name: 'Bindung Middle', preis: 90.00, category: 'bindings' },
-        { id: 3, name: 'Bindung Hard', preis: 170.00, category: 'bindings' }
+        { id: 1, name: 'Bindung Soft', preis: 100.00, category: 'bindings', imageUrl: 'https://kmsport.pl/4667-large_default/union-bindings-union-strata-2024-white.jpg' },
+        { id: 2, name: 'Bindung Middle', preis: 90.00, category: 'bindings', imageUrl: 'https://www.tradeinn.com/f/13991/139915278/union-binding-force-classic-snowboard-bindings.jpg' },
+        { id: 3, name: 'Bindung Hard', preis: 170.00, category: 'bindings', imageUrl: 'https://pleasuresmilano.com/wp-content/uploads/2023/09/UN23_ATLAS_METALLIC-SILVER_01_clipped_rev_1.webp' }
     ];
 
     const handleAddToCart = (binding) => {
@@ -23,8 +23,8 @@ const Bindings = () => {
         }));
     };
 
-    const getProductQuantity = (binding) => {
-        const product = cartItems.find(item => item.id === `${binding.category}-${binding.id}`);
+    const getProductQuantity = (bindingId) => {
+        const product = cartItems.find(item => item.id === `${bindingId.category}-${bindingId.id}`);
         return product ? product.quantity : 0;
     };
 
@@ -37,11 +37,16 @@ const Bindings = () => {
                         {bindings.map(binding => (
                             <div className='snowboard-items' key={`${binding.category}-${binding.id}`}>
                                 <h2>{binding.name}</h2>
+                                <img src={binding.imageUrl} alt={binding.name} style={{ width: '100px', height: '100px' }} />
                                 <p>Preis: <strong>{binding.preis} Euro</strong></p>
-                                <button onClick={() => handleAddToCart(binding)}>
-                                    +
-                                </button>
-                                <span style={{ marginLeft: '10px' }}>Menge: {getProductQuantity(binding)}</span>
+                                <div style={{ display: 'flex', alignItems: 'center' }}>
+                                    <button onClick={() => handleAddToCart(binding)}>
+                                        +
+                                    </button>
+                                    <span style={{ marginLeft: '10px' }}>
+                                        Menge im Warenkorb: {getProductQuantity(binding)}
+                                    </span>
+                                </div>
                             </div>
                         ))}
                     </div>

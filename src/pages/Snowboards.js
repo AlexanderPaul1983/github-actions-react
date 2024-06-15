@@ -11,8 +11,8 @@ const Snowboards = () => {
 
     const snowboards = [
         { id: 1, name: 'Snowboard 1 Freestyle', preis: 500.00, category: 'snowboards', imageUrl: 'https://www.burton.com/static/product/W24/10704108000_1.png?impolicy=bglt&imwidth=766'},
-        { id: 2, name: 'Snowboard 2 Freeride', preis: 560.00, category: 'snowboards' },
-        { id: 3, name: 'Snowboard 3 AllMountain', preis: 800.00, category: 'snowboards' }
+        { id: 2, name: 'Snowboard 2 Freeride', preis: 560.00, category: 'snowboards', imageUrl: 'https://images.blue-tomato.com/is/image/bluetomato/305064107_front.jpg-QLRzYBvXLw8rh5Bwrqj9ozmUFCw/Beast+2024+Snowboard.jpg?$b8$'},
+        { id: 3, name: 'Snowboard 3 AllMountain', preis: 800.00, category: 'snowboards', imageUrl: 'https://static.privatesportshop.com/img/p/7441632-22696285-thickbox.jpg'}
     ];
 
     const handleAddToCart = (snowboard) => {
@@ -23,7 +23,6 @@ const Snowboards = () => {
         }));
     };
 
- 
     const getProductQuantity = (productId) => {
         const product = cartItems.find(item => item.id === `${productId.category}-${productId.id}`);
         return product ? product.quantity : 0;
@@ -38,6 +37,7 @@ const Snowboards = () => {
                         {snowboards.map(snowboard => (
                             <div className='snowboard-items' key={`${snowboard.category}-${snowboard.id}`}>
                                 <h2>{snowboard.name}</h2>
+                                <img src={snowboard.imageUrl} alt={snowboard.name} style={{ width: '100px', height: '100px' }} />
                                 <p>Preis: <strong>{snowboard.preis} Euro</strong></p>
                                 <div style={{ display: 'flex', alignItems: 'center' }}>
                                     <button onClick={() => handleAddToCart(snowboard)}>

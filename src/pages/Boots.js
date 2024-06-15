@@ -10,9 +10,9 @@ const Boots = () => {
     const cartItems = useSelector(state => state.cart.products); 
 
     const boots = [
-        { id: 1, name: 'Boot Soft', preis: 50.00, category: 'boots' },
-        { id: 2, name: 'Boot Middle', preis: 56.00, category: 'boots' },
-        { id: 3, name: 'Boot Hard', preis: 80.00, category: 'boots' }
+        { id: 1, name: 'Boot Soft', preis: 50.00, category: 'boots', imageUrl: 'https://www.agnarchy.com/wp-content/uploads/2021/05/2022-Delux_Spark_XV.jpg' },
+        { id: 2, name: 'Boot Middle', preis: 56.00, category: 'boots', imageUrl: 'https://deeluxe.com/wp-content/uploads/2022/12/x-plorer-dessert-green-1-300x300.jpg' },
+        { id: 3, name: 'Boot Hard', preis: 80.00, category: 'boots', imageUrl: 'https://images.blue-tomato.com/is/image/bluetomato/304779545_front.jpg-eai1EaUwujhMef3vOPwH1mXoIFA/DNA+2024+Snowboard+Boots.jpg?$b8$' }
     ];
 
     const handleAddToCart = (boot) => {
@@ -23,8 +23,8 @@ const Boots = () => {
         }));
     };
 
-    const getProductQuantity = (boot) => {
-        const product = cartItems.find(item => item.id === `${boot.category}-${boot.id}`);
+    const getProductQuantity = (bootId) => {
+        const product = cartItems.find(item => item.id === `${bootId.category}-${bootId.id}`);
         return product ? product.quantity : 0;
     };
 
@@ -37,10 +37,9 @@ const Boots = () => {
                         {boots.map(boot => (
                             <div className='snowboard-items' key={`${boot.category}-${boot.id}`}>
                                 <h2>{boot.name}</h2>
+                                <img src={boot.imageUrl} alt={boot.name} style={{ width: '100px', height: '100px' }} />
                                 <p>Preis: <strong>{boot.preis} Euro</strong></p>
-                                <button onClick={() => handleAddToCart(boot)}>
-                                    +
-                                </button>
+                                <button onClick={() => handleAddToCart(boot)}>+</button>
                                 <span style={{ marginLeft: '10px' }}>Menge: {getProductQuantity(boot)}</span>
                             </div>
                         ))}
