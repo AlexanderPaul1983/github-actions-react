@@ -1,90 +1,122 @@
+/* Base layout styles */
+.home-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.centered-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    border: 1px solid black;
+}
+
 .product-detail-container {
     position: relative;
-    min-height: 100vh;
+    width: 100%;
+    max-width: 1200px; /* Setting a max-width for better control on larger screens */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 0 20px;
 }
 
+/* Header styles */
 .product-detail-container h1 {
     font-size: 24px;
     margin-bottom: 20px;
+    text-align: center;
 }
 
-.product-detail-container label {
-    font-size: 18px;
+/* Button and input styles */
+.product-detail-container button {
+    background-color: rgba(2, 161, 2, 0.372);
+    padding: 10px 20px;
+    font-size: 18px; /* Adjusted for better readability */
+    cursor: pointer;
+    border: none;
+    border-radius: 5px; /* Adds rounded corners to the buttons */
 }
 
-.home-container{
-    display: flex;
-    width: 100%;
-    height: 100%;
-    flex-direction: column;
-    align-items: center;
-    
+.product-detail-container button:hover {
+    background-color: rgba(2, 161, 2, 0.672);
 }
-
 
 .product-detail-container input {
     margin: 10px 0;
     padding: 10px;
     font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
 
-.centered-container {
+/* Styles for product listings */
+.snowboards-container {
     display: flex;
-    justify-content: center; 
-    align-items: center;  
-    height: 100vh; 
-    border: 1px solid black; 
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
 
-    
-  }
-  
-  .content {
-    text-align: center;    
-    border: 1px solid red; 
-    padding: 20px;        
-  }
+.snowboard-items {
+    flex: 1 1 300px; /* Allows boxes to grow and shrink but not smaller than 300px */
+    margin: 15px;
+    border: 2px solid #ccc;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
 
-.product-detail-container button {
-    background-color: rgba(2, 161, 2, 0.372);
-    padding: 10px 20px;
-    font-size: 40px;
-    cursor: pointer;
-    margin-bottom: 100px;
+#cart-btn {
+    background-color: rgb(189, 240, 22);
+    font-size: 20px;
+    margin-left: 8px;
+    border: 2px solid transparent;
 }
-.snowboards-container{
-    display: flex;
-    flex-direction: row; 
-}
-#cart-btn{
-   background-color: rgb(189, 240, 22);
-   font-size: 20px;
-   margin-left: 8px;
-}
-#cart-btn:hover{
+
+#cart-btn:hover {
     background-color: rgb(181, 235, 6);
     border-color: gold;
- }
-.snowboard-items{
-    margin-left: 35px;
-    border: 2px solid;
-    padding: 15px;
 }
-#auswahl-delete{
+
+#auswahl-delete {
     background-color: rgb(219, 105, 105);
     font-size: 13px;
     border: none;
 }
-#auswahl-delete:hover{
+
+#auswahl-delete:hover {
     background-color: rgb(218, 92, 92);
     font-size: 13px;
     border: 1px solid;
-    cursor: pointer;
 }
-.kaufen-btn-onProducts{
-    cursor: pointer;
-    margin-bottom: 40px;
+
+.kaufen-btn-onProducts {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    margin-top: 20px; /* Provides some space between the product listings and the button */
+    width: 100%;
+    text-align: center;
+}
+
+.kaufen-btn-onProducts:hover {
+    background-color: #555;
+}
+
+/* Adjustments for smaller screens */
+@media (max-width: 768px) {
+    .snowboards-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .snowboard-items {
+        width: 90%; /* Makes the items take more width on smaller screens */
+    }
 }

@@ -1,67 +1,58 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import './product-detail.css';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
+import { addProduct } from '../store/cart';
 
 const Bindings = () => {
-    const snowboard1 = {
-        id: 1,
-        name: 'Bindung-1',
-        preis: 100.00
-    }
-    const snowboard2 = {
-        id: 2,
-        name: 'Bindung-2',
-        preis: 90.00
-    }
-    const snowboard3 = {
-        id: 3,
-        name: 'Bindung-3',
-        preis: 170.00
-    }
+    const dispatch = useDispatch();
+    const cartItems = useSelector(state => state.cart.products);
 
-    const snowboards = [snowboard1, snowboard2, snowboard3];
+    const bindings = [
+        { id: 1, name: 'Bindung Soft', preis: 100.00, category: 'bindings', imageUrl: 'https://kmsport.pl/4667-large_default/union-bindings-union-strata-2024-white.jpg' },
+        { id: 2, name: 'Bindung Middle', preis: 90.00, category: 'bindings', imageUrl: 'https://www.tradeinn.com/f/13991/139915278/union-binding-force-classic-snowboard-bindings.jpg' },
+        { id: 3, name: 'Bindung Hard', preis: 170.00, category: 'bindings', imageUrl: 'https://pleasuresmilano.com/wp-content/uploads/2023/09/UN23_ATLAS_METALLIC-SILVER_01_clipped_rev_1.webp' }
+    ];
 
-    const [auswahl, setAuswahl] = useState([]);
-    const [gesamtPreis, setGesamtPreis] = useState(0);
+    const handleAddToCart = (binding) => {
+        dispatch(addProduct({
+            ...binding, 
+            id: `${binding.category}-${binding.id}`,
+            quantity: 1
+        }));
+    };
 
-    const addItem = (snowboard) => {
-        setAuswahl([...auswahl, snowboard]);
-        setGesamtPreis(prevPreis => prevPreis + snowboard.preis);
-    }
-
-    const removeItem = (id) => {
-        const updatedAuswahl = auswahl.filter(snowboard => snowboard.id !== id);
-        const removedSnowboard = auswahl.find(snowboard => snowboard.id === id);
-        setAuswahl(updatedAuswahl);
-        setGesamtPreis(prevPreis => prevPreis - removedSnowboard.preis);
-    }
+    const getProductQuantity = (bindingId) => {
+        const product = cartItems.find(item => item.id === `${bindingId.category}-${bindingId.id}`);
+        return product ? product.quantity : 0;
+    };
 
     return (
-        <div className="product-detail-container">
-            <h1>Snowboards auswählen</h1>
-            
-            <div className='snowboards-container'>
-                {snowboards.map(snowboard => (
-                    <div className='snowboard-items' key={snowboard.id}>
-                        <h2>{snowboard.name}</h2>
-                        <p>Preis: </p><h3>{snowboard.preis} Euro</h3>
-                        <button id='cart-btn'>Zum Warenkorb</button>
-                        <button id='cart-btn' onClick={() => addItem(snowboard)}>Auswählen</button>
+        <div className='home-container'>
+            <Header />
+            <div className='centered-container'>
+                <div className="product-detail-container">
+                    <div className='snowboards-container'>
+                        {bindings.map(binding => (
+                            <div className='snowboard-items' key={`${binding.category}-${binding.id}`}>
+                                <h2>{binding.name}</h2>
+                                <img src={binding.imageUrl} alt={binding.name} style={{ width: '100px', height: '100px' }} />
+                                <p>Preis: <strong>{binding.preis} Euro</strong></p>
+                                <div style={{ display: 'flex', alignItems: 'center' }}>
+                                    <button onClick={() => handleAddToCart(binding)}>
+                                        +
+                                    </button>
+                                    <span style={{ marginLeft: '10px' }}>
+                                        Menge im Warenkorb: {getProductQuantity(binding)}
+                                    </span>
+                                </div>
+                            </div>
+                        ))}
                     </div>
-                ))}
-            </div>
-
-            <h2>Ihre Auswahl:</h2>
-            {auswahl.map(snowboard => (
-                <div key={snowboard.id}>
-                    <h4>{snowboard.name}</h4>
-                    <p>Preis: {snowboard.preis} Euro</p>
-                    <button id='auswahl-delete' onClick={() => removeItem(snowboard.id)}>Auswahl löschen</button>
                 </div>
-            ))}
-
-            <h2>Gesamtpreis: </h2>
-            <h4>{gesamtPreis.toFixed(2)} Euro</h4>
-            <button>Kaufen</button>
+            </div>
+            <Footer />
         </div>
     );
 }

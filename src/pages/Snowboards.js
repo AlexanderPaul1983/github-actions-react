@@ -1,67 +1,58 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import './product-detail.css';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
+import { addProduct } from '../store/cart';
 
 const Snowboards = () => {
-    const snowboard1 = {
-        id: 1,
-        name: 'Snowboard-1',
-        preis: 500.00
-    }
-    const snowboard2 = {
-        id: 2,
-        name: 'Snowboard-2',
-        preis: 560.00
-    }
-    const snowboard3 = {
-        id: 3,
-        name: 'Snowboard-3',
-        preis: 800.00
-    }
+    const dispatch = useDispatch();
+    const cartItems = useSelector(state => state.cart.products); 
 
-    const snowboards = [snowboard1, snowboard2, snowboard3];
+    const snowboards = [
+        { id: 1, name: 'Snowboard 1 Freestyle', preis: 500.00, category: 'snowboards', imageUrl: 'https://www.burton.com/static/product/W24/10704108000_1.png?impolicy=bglt&imwidth=766'},
+        { id: 2, name: 'Snowboard 2 Freeride', preis: 560.00, category: 'snowboards', imageUrl: 'https://images.blue-tomato.com/is/image/bluetomato/305064107_front.jpg-QLRzYBvXLw8rh5Bwrqj9ozmUFCw/Beast+2024+Snowboard.jpg?$b8$'},
+        { id: 3, name: 'Snowboard 3 AllMountain', preis: 800.00, category: 'snowboards', imageUrl: 'https://static.privatesportshop.com/img/p/7441632-22696285-thickbox.jpg'}
+    ];
 
-    const [auswahl, setAuswahl] = useState([]);
-    const [gesamtPreis, setGesamtPreis] = useState(0);
+    const handleAddToCart = (snowboard) => {
+        dispatch(addProduct({
+            ...snowboard,
+            id: `${snowboard.category}-${snowboard.id}`,
+            quantity: 1
+        }));
+    };
 
-    const addItem = (snowboard) => {
-        setAuswahl([...auswahl, snowboard]);
-        setGesamtPreis(prevPreis => prevPreis + snowboard.preis);
-    }
-
-    const removeItem = (id) => {
-        const updatedAuswahl = auswahl.filter(snowboard => snowboard.id !== id);
-        const removedSnowboard = auswahl.find(snowboard => snowboard.id === id);
-        setAuswahl(updatedAuswahl);
-        setGesamtPreis(prevPreis => prevPreis - removedSnowboard.preis);
-    }
+    const getProductQuantity = (productId) => {
+        const product = cartItems.find(item => item.id === `${productId.category}-${productId.id}`);
+        return product ? product.quantity : 0;
+    };
 
     return (
-        <div className="product-detail-container">
-            <h1>Snowboards auswählen</h1>
-            
-            <div className='snowboards-container'>
-                {snowboards.map(snowboard => (
-                    <div className='snowboard-items' key={snowboard.id}>
-                        <h2>{snowboard.name}</h2>
-                        <p>Preis: </p><h3>{snowboard.preis} Euro</h3>
-                        <button id='cart-btn'>Zum Warenkorb</button>
-                        <button id='cart-btn' onClick={() => addItem(snowboard)}>Auswählen</button>
+        <div className='home-container'>
+            <Header />
+            <div className='centered-container'>
+                <div className="product-detail-container">
+                    <div className='snowboards-container'>
+                        {snowboards.map(snowboard => (
+                            <div className='snowboard-items' key={`${snowboard.category}-${snowboard.id}`}>
+                                <h2>{snowboard.name}</h2>
+                                <img src={snowboard.imageUrl} alt={snowboard.name} style={{ width: '100px', height: '100px' }} />
+                                <p>Preis: <strong>{snowboard.preis} Euro</strong></p>
+                                <div style={{ display: 'flex', alignItems: 'center' }}>
+                                    <button onClick={() => handleAddToCart(snowboard)}>
+                                        +
+                                    </button>
+                                    <span style={{ marginLeft: '10px' }}>
+                                        Menge im Warenkorb: {getProductQuantity(snowboard)}
+                                    </span>
+                                </div>
+                            </div>
+                        ))}
                     </div>
-                ))}
-            </div>
-
-            <h2>Ihre Auswahl:</h2>
-            {auswahl.map(snowboard => (
-                <div key={snowboard.id}>
-                    <h4>{snowboard.name}</h4>
-                    <p>Preis: {snowboard.preis} Euro</p>
-                    <button id='auswahl-delete' onClick={() => removeItem(snowboard.id)}>Auswahl löschen</button>
                 </div>
-            ))}
-
-            <h2>Gesamtpreis: </h2>
-            <h4>{gesamtPreis.toFixed(2)} Euro</h4>
-            <button>Kaufen</button>
+            </div>
+            <Footer />
         </div>
     );
 }
