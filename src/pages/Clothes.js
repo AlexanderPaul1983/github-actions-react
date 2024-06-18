@@ -1,67 +1,52 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import './product-detail.css';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
+import { addProduct } from '../store/cart';
 
 const Clothes = () => {
-    const snowboard1 = {
-        id: 1,
-        name: 'Clothe-1',
-        preis: 50.00
-    }
-    const snowboard2 = {
-        id: 2,
-        name: 'Clothe-2',
-        preis: 56.00
-    }
-    const snowboard3 = {
-        id: 3,
-        name: 'Clothe-3',
-        preis: 80.00
-    }
+    const dispatch = useDispatch();
+    const cartItems = useSelector(state => state.cart.products);
 
-    const snowboards = [snowboard1, snowboard2, snowboard3];
+    const clothes = [
+        { id: 1, name: 'Snowboard-Jacket', preis: 59.00, category: 'clothes', imageUrl: 'https://www.ridestore.de/images/H0878_01_W1EkWGM.jpg?w=375&dpr=2' },
+        { id: 2, name: 'Snowboard-Trouser', preis: 86.00, category: 'clothes', imageUrl: 'https://www.burton.com/static/product/W24/10188107001_4.png' },
+        { id: 3, name: 'Snowboard-Underwear', preis: 24.00, category: 'clothes', imageUrl: 'https://img.fruugo.com/product/8/57/147255578_max.jpg' }
+    ];
 
-    const [auswahl, setAuswahl] = useState([]);
-    const [gesamtPreis, setGesamtPreis] = useState(0);
+    const handleAddToCart = (clothe) => {
+        dispatch(addProduct({
+            ...clothe, 
+            id: `${clothe.category}-${clothe.id}`,
+            quantity: 1
+        }));
+    };
 
-    const addItem = (snowboard) => {
-        setAuswahl([...auswahl, snowboard]);
-        setGesamtPreis(prevPreis => prevPreis + snowboard.preis);
-    }
-
-    const removeItem = (id) => {
-        const updatedAuswahl = auswahl.filter(snowboard => snowboard.id !== id);
-        const removedSnowboard = auswahl.find(snowboard => snowboard.id === id);
-        setAuswahl(updatedAuswahl);
-        setGesamtPreis(prevPreis => prevPreis - removedSnowboard.preis);
-    }
+    const getProductQuantity = (clotheId) => {
+        const product = cartItems.find(item => item.id === `${clotheId.category}-${clotheId.id}`);
+        return product ? product.quantity : 0;
+    };
 
     return (
-        <div className="product-detail-container">
-            <h1>Clothes auswählen</h1>
-            
-            <div className='snowboards-container'>
-                {snowboards.map(snowboard => (
-                    <div className='snowboard-items' key={snowboard.id}>
-                        <h2>{snowboard.name}</h2>
-                        <p>Preis: </p><h3>{snowboard.preis} Euro</h3>
-                        <button id='cart-btn'>Zum Warenkorb</button>
-                        <button id='cart-btn' onClick={() => addItem(snowboard)}>Auswählen</button>
+        <div className='home-container'>
+            <Header />
+            <div className='centered-container'>
+                <div className="product-detail-container">
+                    <div className='snowboards-container'>
+                        {clothes.map(clothe => (
+                            <div className='snowboard-items' key={`${clothe.category}-${clothe.id}`}>
+                                <h2>{clothe.name}</h2>
+                                <img src={clothe.imageUrl} alt={clothe.name} style={{ width: '100px', height: '100px' }} />
+                                <p>Preis: <strong>{clothe.preis} Euro</strong></p>
+                                <button onClick={() => handleAddToCart(clothe)}>+</button>
+                                <span style={{ marginLeft: '10px' }}>Menge im Warenkorb: {getProductQuantity(clothe)}</span>
+                            </div>
+                        ))}
                     </div>
-                ))}
-            </div>
-
-            <h2>Ihre Auswahl:</h2>
-            {auswahl.map(snowboard => (
-                <div key={snowboard.id}>
-                    <h4>{snowboard.name}</h4>
-                    <p>Preis: {snowboard.preis} Euro</p>
-                    <button id='auswahl-delete' onClick={() => removeItem(snowboard.id)}>Auswahl löschen</button>
                 </div>
-            ))}
-
-            <h2>Gesamtpreis: </h2>
-            <h4>{gesamtPreis.toFixed(2)} Euro</h4>
-            <button className='kaufen-btn-onProducts'>Kaufen</button>
+            </div>
+            <Footer />
         </div>
     );
 }
