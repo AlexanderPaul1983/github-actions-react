@@ -1,11 +1,11 @@
 import React from 'react'
 import './comStyle.css'
 import {useNavigate} from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+
 
 
 function Header() {
-  const dispatch = useDispatch();
+  
   const navigate = useNavigate();
   const handleClick = () => {
     navigate('/cart');
