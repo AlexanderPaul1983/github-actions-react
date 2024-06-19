@@ -15,6 +15,7 @@ const Footer = () => {
       <div className="footer-info">
         <p>© 2024 SnowGear. Alle Rechte vorbehalten.</p>
       </div>
+      // Hallo
     </footer>
   );
 }
